@@ -27,5 +27,7 @@ renamed as(
        , status                 as order_status
        , coalesce(_fivetran_deleted, false) as is_deleted
        , _fivetran_synced       as date_load
+    
+    from source
 )
 select * from renamed

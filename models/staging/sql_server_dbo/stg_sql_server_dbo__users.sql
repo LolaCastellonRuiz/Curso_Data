@@ -22,8 +22,10 @@ renamed as(
        , created_at         as created_at_utc
        , updated_at
        , coalesce(_fivetran_deleted, false) as is_deleted 
-       , _fivetran_synced
+       , _fivetran_synced                   as date_load
        , _loaded_at
+
+       from source
 )
 
 select * from renamed
