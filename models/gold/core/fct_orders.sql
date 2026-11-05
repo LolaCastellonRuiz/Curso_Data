@@ -18,11 +18,12 @@ final as (
         , o.shipping_service
         , o.tracking_id
         , o.shipping_cost
-        , o.order_cost
+        , o.order_cost 
+        , o.total_order_cost_usd
         , coalesce(p.discount_usd,0) as promo_discount
-        , o.created_at_utc
+        , o.created_at_utc as order_created_at_utc
         , o.estimated_delivery_at
-        , o.delivered_at
+        , o.delivered_at as delivered_at_utc
         , o.date_load
 
     from orders o
