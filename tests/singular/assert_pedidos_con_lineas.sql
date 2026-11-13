@@ -1,27 +1,12 @@
--- =========================================================
--- Test Singular: devuelve los pedidos sin ninguna linea 
--- Une fct_orders con fct_order_items 
--- ==========================================================
+-- =============================================================================
+-- Test singular: todo pedido debe tener al menos una línea de pedido.
+-- =============================================================================
+-- Devuelve los pedidos de fct_orders que no aparecen en fct_order_items.
+-- =============================================================================
 
-{{
-    config(
-        severity='warn'
-    )
-}}
-
-
-with orders as(
-    select * from {{ref('fct_orders')}}
-),
-items as(
-    select * from {{ref('fct_order_items')}}
-)
 select
-      o.* ,
-      i.*
-from orders o 
-left join items i 
-    on o.order_id = i.order_id
-where i.order_item_id IS NULL
-
-
+      o.order_id
+    , o.order_created_at_utc
+from {{ ref('fct_orders') }} o
+left join {{ ref('fct_order_items') }} oi on o.order_id = oi.order_id
+where oi.order_id is null
